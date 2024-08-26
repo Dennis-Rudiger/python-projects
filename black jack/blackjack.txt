@@ -1,0 +1,69 @@
+We define the player class to be initialized with the name and hand
+attribute. The name attribute is taken in as an argument, while hand is set directly inside
+of the class. After we instantiate the game object, we ask the user for their name and
+create an instance of the Player class with their input. The dealer object will always be
+known as “Dealer”, which is why we create the instance with that value being passed in
+during the instantiation.
+
+Adding Cards to the Player’s Hand
+Once we have the player objects being instantiated properly, we can begin to work on
+the methods needed for the Player class. When looking at which method to program
+first, you always need to think about what methods rely on other methods. For this class,
+the calcHand and showHand methods rely on having cards in the hand. For this reason,
+we’ll work on the addCard method and then focus on the other two:
+
+
+
+The addCard method simply takes in a tuple that represents a card
+and appends it to the player’s hand.
+
+we begin a for loop that will add
+two cards to each hand. It does this by pulling a card using the game instance method
+pullCard. That method returns a tuple, and that tuple is then passed into the addCard
+method, which is then appended to the respective player’s hand. This loop will suffice as
+the start of the game in which all players begin with two cards in their hand.
+
+Showing a Player’s Hand
+In the previous section, we were printing out the full hand of each player. However, in
+actual Blackjack, you only show the second card dealt to the dealer. It’s also bad practice
+to reference the attribute directly, so we’ll need to create the showHand method to take
+care of both these problems. We’ll use nicely formatted print statements to show the
+hands, but more importantly, we’ll make sure that if it is still the player’s turn, then you
+can only see one of the dealer’s cards:
+
+The output results in the player’s hand showing both cards,
+while the dealer only shows one.
+
+
+we declare
+the showHand method with the dealer_start parameter. This parameter will be a boolean
+value which tracks whether we hide the first card the dealer is dealt. We set the default
+value to True so that the only time we need to pass an argument of False into the method
+is at the end when we want to show the dealer’s cards. The for loop on line 37 allows us to
+print out each card in the player object’s hand. Line 38 is where we check two things:
+1. The instance that called this method was the dealer.
+2. It’s not the dealer’s turn yet (dealer_start == True).
+If both are true, then we hide the first card; otherwise, we’ll show all the cards for
+both the player and the dealer. The card variable is declared for ease of use when reading
+the code, as we set it to one of the items within our hand, which represents a card. We
+then print a formatted statement with the tuple’s values. This is done by accessing the 0
+and 1 index of the tuples that represent each card. At the bottom of the cell, we call these
+methods for each player object.
+
+
+Calculating the Hand Total
+Now that we’re able to call a method to show each of the player’s hands correctly, we
+need to calculate the total of the cards within the hand. This method becomes a bit
+tricky, however, as we need to keep a few checks in mind:
+1. Aces can be worth 11 or 1 point. They are worth 1 point if the total
+is over 21.
+2. If the dealer is only showing one card, the value of his hand should
+only represent the value of that one card even though he has two
+cards in his hand.
+3. All face cards (J, Q, K) are worth 10 points.
+There are several ways to handle this method. What we’ll program together is just one
+of those many ways. When thinking about how to calculate aces, we need to check for their
+value after we’ve calculated the total of all other cards. We’ll keep track of how many aces
+we have first and then total them up afterward. To make sure we return the dealer’s total
+properly, we’ll keep track of whether it’s his turn or not like we did in the showHand method.
+Lastly, to calculate the face card values, we’ll create a dictionary of values to pull from
